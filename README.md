@@ -30,11 +30,13 @@
   <li>Scripts for both jQuery and PHP.</li>
 </ul>
 <h2>Thanks to</h2>
-For language files:
-Michael Wittig  https://github.com/michaelwittig/node-i18n-iso-countries
-For flags:
-Lipis           https://github.com/lipis/flag-icons
-Jakob Flierl    https://github.com/koppi
+<table>
+  <tr><td>For language files:</td></tr>
+  <tr><td>Michael Wittig</td><td>https://github.com/michaelwittig/node-i18n-iso-countries</td></tr>
+  <tr><td>For flags:</td></tr>
+  <tr><td>Lipis</td><td>https://github.com/lipis/flag-icons</td></tr>
+  <tr><td>Jakob Flierl</td><td>https://github.com/koppi</td></tr>
+</table>
 <h2>Contact</h2>
 <ul>
 <li>oyosoftware <a href="mailto:code@oyosoftware.nl">code@oyosoftware.nl</a></li>
