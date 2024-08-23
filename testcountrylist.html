@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Test Flags</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+		<script src="oyocountrylist.js"></script>
+
+		<style>
+            ::-webkit-scrollbar {
+                width               : 10px;
+                height              : 10px;
+            }
+            ::-webkit-scrollbar-corner {
+                background-color    : transparent;
+            }
+            ::-webkit-scrollbar-thumb {
+                border              : 2px solid black;
+                border-radius       : 5px;
+            }
+            ::-webkit-scrollbar-thumb {
+                background-color    : white;
+            }
+			.header {
+				width				: 350px;
+				padding				: 5px;
+			}
+			.country {
+				position			: relative;
+			}
+			.translation {
+				display				: inline;
+				white-space			: nowrap;
+				position			: absolute;
+				left				: 200px;
+			}
+			.encontainer {
+				width				: 350px;
+				padding				: 5px;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div class="header">
+			<div class="country">Flag, Country
+				<div class="translation">Arabic, Chinese</div>
+			</div>
+		</div>
+		<div class="encontainer"></div>
+
+		<script>
+            $(document).ready(function () {
+				var enCountryList = new oyoCountryList("en");
+				console.log(enCountryList);
+
+                var countries = ["United Nations", "Australia", "Belgium", "Canada", "Germany", "Ireland", "Netherlands", "U.S.A.", "United Kingdom"];
+                buildList("en", countries, enCountryList);
+
+                function buildList(language, countries, countryList) {
+                    var container = "." + language + "container";
+
+					if (language === "en") {
+						var arCountryList = new oyoCountryList("ar");
+						var zhCountryList = new oyoCountryList("zh");
+					}
+
+					countries.forEach(function (country) {
+						var countryCode = countryList.getCountryCode(country);
+						if (country === "United Nations") {
+							countryCode = "UN";
+						}
+						var div = document.createElement("div");
+                        $(div).html(" " + country);
+                        $(div).css("position", "relative");
+                        $(container).append(div);
+						var flag = countryList.getCountryFlag(countryCode, 18);
+                        $(flag).css("vertical-align", "-2.35px");
+                        $(flag).css("border", "1px solid black");
+						$(div).prepend(flag);
+						if (language === "en") {
+							var div2 = document.createElement("div");
+							var country1 = enCountryList.translateCountry(country, arCountryList);
+							var country2 = enCountryList.translateCountry(country, zhCountryList);
+							var countries = country1 + ", " + country2;
+	                        $(div2).html(countries);
+							$(div2).attr("class", "translation");
+							$(div).append(div2);
+						}
+					});
+                }
+
+            });
+		</script>
+
+	</body>
+</html>
