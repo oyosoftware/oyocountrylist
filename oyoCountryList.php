@@ -4,13 +4,25 @@ class oyoCountryList {
 
     private $countries = [];
     private $countryCodes = [];
+    private $oyoCountryListLocation = "";
 
     /**
         Construct a country list for the specified language.
         @param {string} $languageCode The language for which the country list is constructed.
     */
     public function __construct($languageCode = "en") {
-        $filename = "langs/" . $languageCode . ".json";
+        $root = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
+        if (is_null($root)) {
+            $root = filter_input(INPUT_ENV, 'DOCUMENT_ROOT');
+        }
+        $root = realpath($root);
+        $root = str_replace("\\", "/", $root);
+        $dir = __DIR__;
+        $dir = realpath($dir);
+        $dir = str_replace("\\", "/", $dir);
+        $this->oyoCountryListLocation = str_replace($root, "", $dir);
+
+        $filename = __DIR__ . "/langs/" . $languageCode . ".json";
         $file = fopen($filename, "r");
         $json = fread($file, filesize($filename));
         $data = json_decode($json, true);
@@ -94,7 +106,7 @@ class oyoCountryList {
     public function getCountryFlag($countryCode, $width = "100px") {
         $dom = new DOMDocument();
         $img = $dom->createElement("img");
-        $src = "flags/" . strtolower($countryCode) . ".svg";
+        $src = $this->oyoCountryListLocation . "/flags/" . strtolower($countryCode) . ".svg";
         $img->setAttribute('src', $src);
         $img->setAttribute('width', $width);
         $dom->appendChild($img);
@@ -105,7 +117,7 @@ class oyoCountryList {
     /**
         Translate a country to another language using another country list.
         @param {string} $country The country which has to be translated.
-        @param {string} $countryList The other country list to which the country has to be translated.
+        @param {string} $transCountryList The other country list to which the country has to be translated.
         @param {string} $index The index of the country if several names are found.
         @return {string} The translated country.
     */
@@ -132,6 +144,3 @@ class oyoCountryList {
     }
 
 }
-
-$list = new oyoCountryList("en");
-var_dump($list);

@@ -15,12 +15,16 @@
     @param {string} language The language for which the object is made.
     @return {object} The flags object.
 */
+
+var src = $("script").last().attr("src");
+var oyoCountryListLocation = src.substring(0, src.lastIndexOf("/") + 1);
+
 function oyoCountryList(language = "en") {
 
     var countries = [];
     var countryCodes = [];
 
-    url = "langs/" + language + ".json";
+    url = oyoCountryListLocation + "langs/" + language + ".json";
     $.ajax({
         url: url,
         dataType: "json",
@@ -107,7 +111,7 @@ function oyoCountryList(language = "en") {
     */
     countryList.getCountryFlag = function (countryCode, width = "100px") {
         var flag = document.createElement("img");
-        var src = "flags/" + countryCode.toLowerCase() + ".svg";
+        var src = oyoCountryListLocation + "flags/" + countryCode.toLowerCase() + ".svg";
         $(flag).attr("src", src);
         $(flag).attr("width", width);
         return flag;
