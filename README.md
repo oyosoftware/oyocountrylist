@@ -23,7 +23,7 @@
 <h3>Features</h3>
 <ul>
   <li>A country list object for working with country names in different languages.</li>
-  <li>Conversion of country codes to country names and vice cersa.</li>
+  <li>Conversion of country codes to country names and vice versa.</li>
   <li>With the country codes you can get images of the flags of countries</li>
   <li>Possibility to directly translate the country names to another (language) country list.</li>
   <li>Arrays of both countries and country codes can be retrieved.</li>
